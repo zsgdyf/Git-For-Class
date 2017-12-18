@@ -6,18 +6,18 @@
 #include <iostream>  
 using namespace std;
 
-struct Avail
+struct Avail//空闲分区表
 {
-	int Number;
-	int Length;
-	int BeginAddress;
-	bool Used;
+	int Number;//空闲分区编号
+	int Length;//空闲分区长度
+	int BeginAddress;//空闲分区起始地址
+	bool Used;//该分区是否被使用
 };
-struct Busy
+struct Busy//进程占用分区表
 {
-	char Name;
-	int Length;
-	int BeginAddress;
+	char Name;//进程名
+	int Length;//进程长度
+	int BeginAddress;//进程起始地址
 };
 
 void Print(Avail *avail, Busy *busy,int n,int m)
@@ -42,9 +42,9 @@ void Recover(Avail *avail,Busy *busy,int m,int n)
 	int key;
 	cout << "请输入需要回收的进程名:";
 	cin >> name;
-	struct Avail *Navail = new struct Avail[m + 1];
+	struct Avail *Navail = new struct Avail[m + 1];//建立新的可用表
 	for (int i = 0; i < m; i++)
-	{
+	{//没有回收的进程内存占用不变
 		Navail[i + 1].Number = avail[i].Number + 1;
 		Navail[i + 1].BeginAddress = avail[i].BeginAddress;
 		Navail[i + 1].Length = avail[i].Length;
@@ -52,16 +52,16 @@ void Recover(Avail *avail,Busy *busy,int m,int n)
 	Navail[0].Number = 1;
 	for (int j = 0; j < n; j++)
 	{
-		if (name == busy[j].Name)
+		if (name == busy[j].Name)//找到需要回收的进程
 		{
 			key = j;
 			cout << "进程回收成功！" << endl;
 			break;
 		}
 	}
-	Navail[0].BeginAddress = busy[key].BeginAddress;
-	Navail[0].Length = busy[key].Length;
-	Print(Navail, busy, n, m + 1);
+	Navail[0].BeginAddress = busy[key].BeginAddress;//修改可用表起始地址
+	Navail[0].Length = busy[key].Length;//释放分区长度
+	Print(Navail, busy, n, m + 1);//输出新的可用表
 }
 
 void Distribute(Avail *avail,Busy *busy,int m,int n)
@@ -71,17 +71,19 @@ void Distribute(Avail *avail,Busy *busy,int m,int n)
 		for (int i = 0; i < m; i++)
 		{
 			if (avail[i].Length >= busy[j].Length && !avail[i].Used)
-			{
+			{//分区空闲且分区长度大于进程所需长度
+				//分配内存，并调整空闲分区长度
 				avail[i].Length = avail[i].Length - busy[j].Length;
 				if (avail[i].Length != 0)
-				{
+				{//调整分区表空闲分区起始地址
 					avail[i].BeginAddress = avail[i].BeginAddress + busy[j].Length;
 					busy[j + 1].BeginAddress = busy[j].BeginAddress + busy[j].Length;
 				}
 				else
-				{
+				{//若进程所需大小等于空闲分区大小，则置为已使用
 					avail[i].Used = true;
 				}
+				//分配成功
 				cout << busy[j].Name << "进程分配成功" << endl;
 				break;
 			}
@@ -91,6 +93,7 @@ void Distribute(Avail *avail,Busy *busy,int m,int n)
 			}
 		}
 	}
+	//输出空闲表和内存分配情况
 	Print(avail, busy, n, m);
 }
 
