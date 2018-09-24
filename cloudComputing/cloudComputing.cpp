@@ -5,6 +5,8 @@
 #include <vector>
 #include <algorithm>
 #include <time.h>
+#include <string>
+#include <cctype>
 using namespace std;
 string toLower(string word)
 {
@@ -13,6 +15,18 @@ string toLower(string word)
         word[i] = tolower(word[i]);
     }
     return word;
+}
+string delePunct(string word)
+{
+    string outword;
+    for (int i = 0; i < word.size(); i++)
+    {
+        if (!ispunct(word[i]))
+        {
+            outword = outword + word[i];
+        }
+    }
+    return outword;
 }
 bool compare(const pair<string, size_t> &x, const pair<string, size_t> &y)
 {
@@ -40,16 +54,17 @@ void wordCount(string word)
     while (!inFile.eof())
     {
         inFile >> word;
+        word = delePunct(word);
         word = toLower(word);
         wordCount[word]++;
     }
-    /*
+    
     for (auto &w : wordCount)
     {
         cout << left << setw(20) << w.first << "\t" << w.second 
         << ((w.second > 1)? " times" : " time") << endl;
     }
-    */
+    
     cout << "-----------------------------------"
          << "Sort by value:" << endl;
     sortByValue(wordCount, wordVector);
