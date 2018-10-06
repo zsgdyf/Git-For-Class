@@ -15,7 +15,8 @@ public class CloudComputing {
         List<Map.Entry<String, Integer>> wordList = new ArrayList<>(wordCount.entrySet());
         Collections.sort(wordList, new Comparator<Map.Entry<String, Integer>>() {
             public int compare(Entry<String, Integer> x, Entry<String, Integer> y) {
-                return y.getValue().toString().compareTo(x.getValue().toString());
+                //return y.getValue().toString().compareTo(x.getValue().toString());
+                return y.getValue() - x.getValue();
             }
         });
         for (Map.Entry<String, Integer> word : wordList.subList(0, 3)) {
