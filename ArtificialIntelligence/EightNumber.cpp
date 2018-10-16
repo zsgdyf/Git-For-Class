@@ -118,30 +118,30 @@ void BFS(vector<int> start, vector<int> end)
             if (iter == close.end())
             {
                 if (zeroPosition % 3 != 0)
-            {
-                nowMoveLeft = moveLeft(now);
-                steps++;
-                open.push(nowMoveLeft);
-            }
+                {
+                    nowMoveLeft = moveLeft(now);
+                    steps++;
+                    open.push(nowMoveLeft);
+                }
                 if (zeroPosition > 3)
-            {
-                nowMoveUp = moveUp(now);
-                steps++;
-                open.push(nowMoveUp);
-            }
-            if (zeroPosition % 3 != 2)
-            {
-                nowMoveRight = moveRight(now);
-                steps++;
-                open.push(nowMoveRight);
-            }
-            if (zeroPosition < 5)
-            {
-                nowMoveDown = moveDown(now);
-                steps++;
-                open.push(nowMoveDown);
-            }
-            close.push_back(now);
+                {
+                    nowMoveUp = moveUp(now);
+                    steps++;
+                    open.push(nowMoveUp);
+                }
+                if (zeroPosition % 3 != 2)
+                {
+                    nowMoveRight = moveRight(now);
+                    steps++;
+                    open.push(nowMoveRight);
+                }
+                if (zeroPosition < 5)
+                {
+                    nowMoveDown = moveDown(now);
+                    steps++;
+                    open.push(nowMoveDown);
+                }
+                close.push_back(now);
             }
             else
             {
