@@ -4,6 +4,23 @@
 #include <algorithm>
 using namespace std;
 
+/*
+int getInversions(vector<int> num);
+bool isEqual(vector<int> start, vector<int> end);
+bool hasSolution(vector<int> start, vector<int> end);
+void printMatrix(vector<int> num);
+int zeroLocation(vector<int> num);
+vector<int> moveUp(vector<int> num);
+vector<int> moveDown(vector<int> num);
+vector<int> moveRight(vector<int> num);
+vector<int> moveLeft(vector<int> num);
+bool isInClose(vector<int> num);
+void BFS(vector<int> start, vector<int> end);
+*/
+
+queue<vector<int>> open;
+vector<vector<int>> close,state;
+
 int getInversions(vector<int> num)
 {
     int count = 0;
@@ -99,11 +116,22 @@ vector<int> moveRight(vector<int> num)
     return num;    
 }
 
+bool isInClose(vector<int> num)
+{
+    auto iter = find(close.begin(), close.end(), num);
+    if (iter != close.end())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void BFS(vector<int> start, vector<int> end)
 {
     int steps = 0;
-    queue<vector<int>> open;
-    vector<vector<int>> close,state;
     vector<int> now, nowMoveUp, nowMoveDown, nowMoveRight, nowMoveLeft;
     open.push(start);
     while (!open.empty())
@@ -112,34 +140,46 @@ void BFS(vector<int> start, vector<int> end)
         open.pop();
         state.push_back(now);
         int zeroPosition = zeroLocation(now);
-        auto iter = find(close.begin(), close.end(), now);
         if (!isEqual(now, end))// && iter == close.end())
         {
-            if (iter == close.end())
+            if (!isInClose(now))
             {
                 if (zeroPosition % 3 != 0)
                 {
                     nowMoveLeft = moveLeft(now);
-                    steps++;
-                    open.push(nowMoveLeft);
+                    if (!isInClose(nowMoveLeft))
+                    {
+                        open.push(nowMoveLeft);
+                        steps++;
+                    }
+                    
                 }
-                if (zeroPosition > 3)
+                if (zeroPosition > 2)
                 {
                     nowMoveUp = moveUp(now);
-                    steps++;
-                    open.push(nowMoveUp);
+                    if (!isInClose(nowMoveUp))
+                    {
+                        open.push(nowMoveUp);
+                        steps++;
+                    }
                 }
                 if (zeroPosition % 3 != 2)
                 {
                     nowMoveRight = moveRight(now);
-                    steps++;
-                    open.push(nowMoveRight);
+                    if (!isInClose(nowMoveRight))
+                    {
+                        open.push(nowMoveRight);
+                        steps++;
+                    }
                 }
-                if (zeroPosition < 5)
+                if (zeroPosition < 6)
                 {
                     nowMoveDown = moveDown(now);
-                    steps++;
-                    open.push(nowMoveDown);
+                    if (!isInClose(nowMoveDown))
+                    {
+                        open.push(nowMoveDown);
+                        steps++;
+                    }
                 }
                 close.push_back(now);
             }
@@ -166,6 +206,7 @@ void BFS(vector<int> start, vector<int> end)
 int main()
 {
     vector<int> start, end;
+    
     start = {2, 8, 3, 1, 0, 4, 7, 6, 5};
     end = {1, 2, 3, 8, 0, 4, 7, 6, 5};
     cout << "Input start:" << endl;
@@ -199,3 +240,4 @@ int main()
     }
     return 0;
 }
+
