@@ -34,5 +34,6 @@
 #*.app
 
 .vs
+.vscode
 debug
 .idea
