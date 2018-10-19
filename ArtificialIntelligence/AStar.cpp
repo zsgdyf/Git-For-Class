@@ -124,9 +124,6 @@ void printMatrix(vector<int> num)
 int AStar(vector<int> start, vector<int> end)
 {
     int id = 0;
-    open.clear();
-    close.clear();
-    path.clear();
     vector<int> move = {-3, -1, 3, 1};
     open.push_back(state(start, HX(start, end), 0, HX(start, end), id, id++));
     while (!open.empty())
@@ -169,7 +166,6 @@ int AStar(vector<int> start, vector<int> end)
             }
         }
     }
-    return -1;
 
 }
 
@@ -185,13 +181,15 @@ void printPath(int parentId, int stateSize, int steps)
         printMatrix(path[stateSize].num);
         return;
     }
-    for (int i = stateSize; i > -1; --i)
+    for (int i = stateSize; i > 0; --i)
     {
         if (path[i].nowId == parentId)
         {
             printPath(path[i].parentId, i, steps - 1);
         }
     }
+    cout << "step[" << steps << "] -->" << endl;
+    printMatrix(path[stateSize].num);
 }
 
 int main()
