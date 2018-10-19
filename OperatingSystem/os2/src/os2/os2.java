@@ -1,16 +1,16 @@
 package os2;
 
-class Philosopher extends Thread{
+class Philosopher extends Thread {
     private String name;
     private Fork fork;
-    public Philosopher(String name,Fork fork){
+    public Philosopher(String name,Fork fork) {
         super(name);
-        this.name=name;
-        this.fork=fork;
+        this.name = name;
+        this.fork = fork;
     }
 
-    public void run(){
-        while(true){
+    public void run() {
+        while(true) {
             Thinking();
             fork.TakeFork();
             Eating();
@@ -20,7 +20,7 @@ class Philosopher extends Thread{
     }
 
 
-    public void Eating(){
+    public void Eating() {
         System.out.println("EATING:"+name);
         try {
             sleep(500);//模拟吃饭，等待0.5s
@@ -30,7 +30,7 @@ class Philosopher extends Thread{
         }
     }
 
-    public void Thinking(){
+    public void Thinking() {
         System.out.println("THINKING:"+name);
         try {
             sleep(500);//模拟思考，等待0.5s
@@ -41,13 +41,13 @@ class Philosopher extends Thread{
     }
 }
 
-class Fork{
+class Fork {
     //筷子访问位
-    private boolean[] used={false,false,false,false,false,false};
-    public synchronized void TakeFork(){
+    private boolean[] used = {false, false, false, false, false, false};
+    public synchronized void TakeFork() {
         String name = Thread.currentThread().getName();
         int i = Integer.parseInt(name);
-        while(used[i]||used[(i+1)%5]){//一旦左右筷子都被占用
+        while(used[i] || used[(i + 1) % 5]) {//一旦左右筷子都被占用
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -55,20 +55,20 @@ class Fork{
                 e.printStackTrace();
             }
         }
-        used[i]=true;
-        used[(i+1)%5]=true;
+        used[i] = true;
+        used[(i + 1) % 5] = true;
     }
 
-    public synchronized void PutFork(){
+    public synchronized void PutFork() {
         String name = Thread.currentThread().getName();
         int i = Integer.parseInt(name);
-        used[i]= false;
-        used[(i+1)%5]=false;
+        used[i] = false;
+        used[(i + 1) % 5] = false;
         notifyAll();
     }
 }
 public class os2 {
-    public static void main(String []args){
+    public static void main(String []args) {
         Fork fork = new Fork();
         new Philosopher("0",fork).start();
         new Philosopher("1",fork).start();
