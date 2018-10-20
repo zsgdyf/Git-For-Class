@@ -98,11 +98,9 @@ void expandState(state now, int zeroL, int newLocation)
 {
     swap(now.num[newLocation], now.num[zeroL]);
     state newState = state(now.num, id++, now.nowId);
-    //vector<int>::iterator iter = find(close.begin(), close.end(), now.num);
     if(!close.count(now.num))
     {
         open.push(newState);
-        //step++;
     }
 }
 
@@ -120,7 +118,7 @@ int BFS(vector<int> start, vector<int> end)
         close[now.num] = true;
         if (isEqual(now.num, end))
         {
-            return now.nowId;
+            return step;
         }
         int zeroL = zeroLocation(now.num);
         int newLocation = 0;
@@ -128,7 +126,6 @@ int BFS(vector<int> start, vector<int> end)
         {
             newLocation = zeroL + move[0];
             expandState(now, zeroL, newLocation);
-            step++;
         }
         if (zeroL > 2)
         {
@@ -145,6 +142,7 @@ int BFS(vector<int> start, vector<int> end)
             newLocation = zeroL + move[3];
             expandState(now, zeroL, newLocation);
         }
+        step++;
     }
 }
 
