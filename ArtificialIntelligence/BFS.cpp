@@ -123,44 +123,28 @@ int BFS(vector<int> start, vector<int> end)
             return now.nowId;
         }
         int zeroL = zeroLocation(now.num);
-        //for (int i = 0; i < 4; i++)
-        //{
-            int newLocation = 0;
-            if (zeroL % 3 != 0)
-            {
-                newLocation = zeroL + move[0];
-                expandState(now, zeroL, newLocation);
-                step++;
-            }
-            if (zeroL > 2)
-            {
-                newLocation = zeroL + move[1];
-                expandState(now, zeroL, newLocation);
-            }
-            if (zeroL % 3 != 2)
-            {
-                newLocation = zeroL + move[2];
-                expandState(now, zeroL, newLocation);
-            }
-            if (zeroL < 6)
-            {
-                newLocation = zeroL + move[3];
-                expandState(now, zeroL, newLocation);
-            }
-            /*
-            if (newLocation > -1 && newLocation < 9)
-            {
-                swap(now.num[newLocation], now.num[zeroL]);
-                state newState = state(now.num, now.deeps + 1, id++, now.nowId);
-                swap(now.num[newLocation], now.num[zeroL]);
-                if(!close.count(newState.num))
-                {
-                    open.push(newState);
-                    step++;
-                }
-            }
-            */
-        //}
+        int newLocation = 0;
+        if (zeroL % 3 != 0)
+        {
+            newLocation = zeroL + move[0];
+            expandState(now, zeroL, newLocation);
+            step++;
+        }
+        if (zeroL > 2)
+        {
+            newLocation = zeroL + move[1];
+            expandState(now, zeroL, newLocation);
+        }
+        if (zeroL % 3 != 2)
+        {
+            newLocation = zeroL + move[2];
+            expandState(now, zeroL, newLocation);
+        }
+        if (zeroL < 6)
+        {
+            newLocation = zeroL + move[3];
+            expandState(now, zeroL, newLocation);
+        }
     }
 }
 
