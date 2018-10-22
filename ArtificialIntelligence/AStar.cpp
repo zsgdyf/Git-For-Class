@@ -121,6 +121,7 @@ void printMatrix(vector<int> num)
     }
 }
 
+
 int AStar(vector<int> start, vector<int> end)
 {
     int id = 0;
@@ -138,10 +139,15 @@ int AStar(vector<int> start, vector<int> end)
             return now.gX;
         }
         int zeroL = zeroLocation(now.num);
+        int newLocation = 0;
         for (int i = 0; i < 4; i++)
         {
             int newLocation = zeroL + move[i];
-            if (newLocation > -1 && newLocation < 9)
+            if (newLocation > -1 && newLocation < 9 
+            && !(newLocation == 2 && zeroL == 3) 
+            && !(newLocation == 3 && zeroL == 2)
+            && !(newLocation == 5 && zeroL == 6)
+            && !(newLocation == 6 && zeroL == 5))
             {
                 swap(now.num[newLocation], now.num[zeroL]);
                 state newState = state(now.num, 0, now.gX + 1, HX(now.num, end), id++, now.nowId);
