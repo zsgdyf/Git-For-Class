@@ -10,7 +10,7 @@ bool isEqual(vector<int> start, vector<int> end);
 
 class state
 {
-    public:
+  public:
     vector<int> num;
     int nowId, parentId;
     state(vector<int> num, int nowId, int parentId)
@@ -92,25 +92,12 @@ int zeroLocation(vector<int> num)
     }
 }
 
-static int id = 0;
-
-void expandState(state now, int zeroL, int newLocation)
-{
-    swap(now.num[newLocation], now.num[zeroL]);
-    state newState = state(now.num, id++, now.nowId);
-    if(!close.count(now.num))
-    {
-        open.push(newState);
-    }
-}
-
 int BFS(vector<int> start, vector<int> end)
 {
-    int step = 0;
-    //static int id = 0, step = 0;
+    int id = 0, step = 0;
     vector<int> move = {-1, -3, 1, 3};
     open.push(state(start, id, id++));
-    while(!open.empty())
+    while (!open.empty())
     {
         state now = open.front();
         open.pop();
@@ -122,27 +109,21 @@ int BFS(vector<int> start, vector<int> end)
         }
         int zeroL = zeroLocation(now.num);
         int newLocation = 0;
-        if (zeroL % 3 != 0)
+        for (int i = 0; i < 4; i++)
         {
-            newLocation = zeroL + move[0];
-            expandState(now, zeroL, newLocation);
+            newLocation = zeroL + move[i];
+            if (newLocation > -1 && newLocation < 9 && !(newLocation == 2 && zeroL == 3) && !(newLocation == 3 && zeroL == 2) && !(newLocation == 5 && zeroL == 6) && !(newLocation == 6 && zeroL == 5))
+            {
+                swap(now.num[newLocation], now.num[zeroL]);
+                state newState = state(now.num, id++, now.nowId);
+                swap(now.num[newLocation], now.num[zeroL]);
+                if (!close.count(newState.num))
+                {
+                    open.push(newState);
+                    step++;
+                }
+            }
         }
-        if (zeroL > 2)
-        {
-            newLocation = zeroL + move[1];
-            expandState(now, zeroL, newLocation);
-        }
-        if (zeroL % 3 != 2)
-        {
-            newLocation = zeroL + move[2];
-            expandState(now, zeroL, newLocation);
-        }
-        if (zeroL < 6)
-        {
-            newLocation = zeroL + move[3];
-            expandState(now, zeroL, newLocation);
-        }
-        step++;
     }
 }
 

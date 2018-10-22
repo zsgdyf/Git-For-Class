@@ -142,7 +142,7 @@ int AStar(vector<int> start, vector<int> end)
         int newLocation = 0;
         for (int i = 0; i < 4; i++)
         {
-            int newLocation = zeroL + move[i];
+            newLocation = zeroL + move[i];
             if (newLocation > -1 && newLocation < 9 
             && !(newLocation == 2 && zeroL == 3) 
             && !(newLocation == 3 && zeroL == 2)
