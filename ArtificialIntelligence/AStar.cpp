@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <map>
+#include <ctime>
 
 using namespace std;
 
@@ -201,6 +202,8 @@ void printPath(int parentId, int stateSize, int steps)
 int main()
 {
     vector<int> start, end;
+    clock_t startTime, endTime;
+    startTime = clock();
     start = {2, 8, 3, 1, 0, 4, 7, 6, 5};
     end = {1, 2, 3, 8, 0, 4, 7, 6, 5};
     cout << "Input start:" << endl;
@@ -211,11 +214,13 @@ int main()
     {
         int steps = AStar(start, end);
         printPath((path.end() - 1)->parentId, path.size() - 1, steps);
-        cout << "Has solution";
+        cout << "Has solution" << endl;
     }
     else
     {
-        cout << "No solution";
+        cout << "No solution" << endl;
     }
+    endTime = clock();
+    cout << "Total Time:" << endTime - startTime << "ms" << endl;
     return 0;
 }

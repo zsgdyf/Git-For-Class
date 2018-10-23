@@ -3,6 +3,7 @@
 #include <queue>
 #include <map>
 #include <algorithm>
+#include <ctime>
 
 using namespace std;
 
@@ -112,7 +113,11 @@ int BFS(vector<int> start, vector<int> end)
         for (int i = 0; i < 4; i++)
         {
             newLocation = zeroL + move[i];
-            if (newLocation > -1 && newLocation < 9 && !(newLocation == 2 && zeroL == 3) && !(newLocation == 3 && zeroL == 2) && !(newLocation == 5 && zeroL == 6) && !(newLocation == 6 && zeroL == 5))
+            if (newLocation > -1 && newLocation < 9 
+            && !(newLocation == 2 && zeroL == 3) 
+            && !(newLocation == 3 && zeroL == 2) 
+            && !(newLocation == 5 && zeroL == 6) 
+            && !(newLocation == 6 && zeroL == 5))
             {
                 swap(now.num[newLocation], now.num[zeroL]);
                 state newState = state(now.num, id++, now.nowId);
@@ -130,6 +135,8 @@ int BFS(vector<int> start, vector<int> end)
 int main()
 {
     vector<int> start, end;
+    clock_t startTime, endTime;
+    startTime = clock();
     start = {2, 8, 3, 1, 0, 4, 7, 6, 5};
     end = {1, 2, 3, 8, 0, 4, 7, 6, 5};
     cout << "Input start:" << endl;
@@ -139,17 +146,19 @@ int main()
     if (hasSolution(start, end))
     {
         int steps = BFS(start, end);
-        for (auto i : path)
+        for (int i = 0; i < path.size(); i++)
         {
-            cout << "-------->" << endl;
-            printMatrix(i.num);
+            cout << "step[" << i << "]-->" << endl;
+            printMatrix(path[i].num);
         }
         cout << "steps:" << steps << endl;
-        cout << "Has solution";
+        cout << "Has solution" << endl;
     }
     else
     {
-        cout << "No solution";
+        cout << "No solution" << endl;
     }
+    endTime = clock();
+    cout << "Total Time:" << endTime - startTime << "ms" << endl;
     return 0;
 }
