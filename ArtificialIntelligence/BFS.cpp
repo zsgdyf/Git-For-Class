@@ -106,7 +106,7 @@ int BFS(vector<int> start, vector<int> end)
         close[now.num] = true;
         if (isEqual(now.num, end))
         {
-            return step;
+            return path.size();
         }
         int zeroL = zeroLocation(now.num);
         int newLocation = 0;
