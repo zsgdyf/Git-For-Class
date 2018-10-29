@@ -134,15 +134,27 @@ int BFS(vector<int> start, vector<int> end)
 
 int main()
 {
-    vector<int> start, end;
+    vector<int> start(9), end(9);
     clock_t startTime, endTime;
-    startTime = clock();
-    start = {2, 8, 3, 1, 0, 4, 7, 6, 5};
-    end = {1, 2, 3, 8, 0, 4, 7, 6, 5};
+    //start = {2, 8, 3, 1, 0, 4, 7, 6, 5};
+    //end = {1, 2, 3, 8, 0, 4, 7, 6, 5};
     cout << "Input start:" << endl;
+    for (int i = 0; i < 9; i++)
+    {
+        cin >> start[i];
+    }
+    cout << "------------------" << endl;
     printMatrix(start);
+    cout << "------------------" << endl;
     cout << "Input end:" << endl;
+    for (int i = 0; i < 9; i++)
+    {
+        cin >> end[i];
+    }
+    cout << "------------------" << endl;
     printMatrix(end);
+    cout << "------------------" << endl;
+    startTime = clock();
     if (hasSolution(start, end))
     {
         int steps = BFS(start, end);
