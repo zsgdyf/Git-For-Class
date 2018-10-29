@@ -58,13 +58,13 @@ void wordCount(string word)
         word = toLower(word);
         wordCount[word]++;
     }
-    
+    /*
     for (auto &w : wordCount)
     {
         cout << left << setw(20) << w.first << "\t" << w.second 
         << ((w.second > 1)? " times" : " time") << endl;
     }
-    
+    */
     cout << "-----------------------------------"
          << "Sort by value:" << endl;
     sortByValue(wordCount, wordVector);
