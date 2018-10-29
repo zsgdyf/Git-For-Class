@@ -58,7 +58,7 @@ public class CloudComputing {
         String words = "";
         //Scanner in = new Scanner(System.in);
         try {
-            Scanner in = new Scanner(Paths.get("data1.dat"), "UTF-8");
+            Scanner in = new Scanner(Paths.get("data.dat"), "UTF-8");
             while (in.hasNextLine()) {
                 words = words + in.nextLine();
             }
