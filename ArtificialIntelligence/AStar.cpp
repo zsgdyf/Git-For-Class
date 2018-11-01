@@ -154,6 +154,11 @@ int AStar(vector<int> start, vector<int> end)
                 state newState = state(now.num, 0, now.gX + 1, HX(now.num, end), id++, now.nowId);
                 swap(now.num[newLocation], now.num[zeroL]);
                 newState.fX = FX(newState);
+                if (isEqual(newState.num, end))
+                {
+                    path.push_back(newState);
+                    return newState.gX;
+                }
                 if (!close.count(newState.num))
                 {
                     vector<state>::iterator iter = find(open.begin(), open.end(), newState);
@@ -178,11 +183,7 @@ int AStar(vector<int> start, vector<int> end)
 
 void printPath(int parentId, int stateSize, int steps)
 {
-    if (steps < 0)
-    {
-        return;
-    }
-    else if (steps == 0)
+    if (steps == 0)
     {
         cout << "step[" << steps << "] -->" << endl;
         printMatrix(path[stateSize].num);
@@ -226,7 +227,7 @@ int main()
     {
         int steps = AStar(start, end);
         printPath((path.end() - 1)->parentId, path.size() - 1, steps);
-        cout << "steps:" << steps << endl;;
+        cout << "steps:" << steps << endl;
         cout << "Has solution" << endl;
     }
     else
