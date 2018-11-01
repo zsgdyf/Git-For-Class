@@ -93,7 +93,7 @@ int getInversions(vector<int> num)
         }
         for (int j = i; j < 9; j++)
         {
-            if (num[i] > num[j])
+            if (num[j] != 0 && num[i] > num[j])
             {
                 count++;
             }

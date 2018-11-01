@@ -41,7 +41,7 @@ int getInversions(vector<int> num)
         }
         for (int j = i; j < 9; j++)
         {
-            if (num[i] > num[j])
+            if (num[j] != 0 && num[i] > num[j])
             {
                 count++;
             }
@@ -67,7 +67,7 @@ bool hasSolution(vector<int> start, vector<int> end)
     int inverStart, inverEnd;
     inverStart = getInversions(start);
     inverEnd = getInversions(end);
-    return inverStart % 2 == inverEnd % 2;
+    return (inverStart % 2 == inverEnd % 2);
 }
 
 void printMatrix(vector<int> num)
@@ -158,12 +158,12 @@ int main()
     if (hasSolution(start, end))
     {
         int steps = BFS(start, end);
-        for (int i = 0; i < path.size(); i++)
+        for (int i = 1; i < path.size(); i++)
         {
             cout << "step[" << i << "]-->" << endl;
             printMatrix(path[i].num);
         }
-        cout << "steps:" << steps << endl;
+        cout << "steps:" << steps - 1 << endl;
         cout << "Has solution" << endl;
     }
     else
