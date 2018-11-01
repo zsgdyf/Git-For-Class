@@ -15,7 +15,7 @@ public class CloudComputing {
         List<Map.Entry<String, Integer>> wordList = new ArrayList<>(wordCount.entrySet());
         Collections.sort(wordList, new Comparator<Map.Entry<String, Integer>>() {
             public int compare(Entry<String, Integer> x, Entry<String, Integer> y) {
-                //return y.getValue().toString().compareTo(x.getValue().toString());
+                // return y.getValue().toString().compareTo(x.getValue().toString());
                 return y.getValue() - x.getValue();
             }
         });
@@ -23,14 +23,13 @@ public class CloudComputing {
             System.out.println("[" + word.getKey() + ", " + word.getValue() + "]");
         }
     }
+
     public static void wordCount(String words) {
         Map<String, Integer> wordCount = new HashMap<>();
         String[] word = words.split("\\W+");
         /*
-        for (String a : word) {
-            System.out.println("[" + a + "]");
-        }
-        */
+         * for (String a : word) { System.out.println("[" + a + "]"); }
+         */
         for (int i = 0; i < word.length; i++) {
             String key = word[i].toLowerCase();
             if (!wordCount.containsKey(key) && key != "") {
@@ -41,22 +40,20 @@ public class CloudComputing {
             }
         }
         /*
-        wordCount.forEach((key, value) -> {
-            System.out.println(key + "----" + value);
-        });
-        */
+         * wordCount.forEach((key, value) -> { System.out.println(key + "----" + value);
+         * });
+         */
         /*
-        for (Map.Entry<String, Integer> entry : wordCount.entrySet()) {
-            System.out.println(entry.getKey() + "----" + entry.getValue());
-        }
-        */
+         * for (Map.Entry<String, Integer> entry : wordCount.entrySet()) {
+         * System.out.println(entry.getKey() + "----" + entry.getValue()); }
+         */
         sortByValue(wordCount);
     }
 
     public static void main(String[] args) {
         System.out.print("Please input a sentence: \n");
         String words = "";
-        //Scanner in = new Scanner(System.in);
+        // Scanner in = new Scanner(System.in);
         try {
             Scanner in = new Scanner(Paths.get("data.dat"), "UTF-8");
             while (in.hasNextLine()) {
@@ -64,6 +61,7 @@ public class CloudComputing {
             }
             wordCount(words);
             in.close();
-        } catch(IOException e) {}   
+        } catch (IOException e) {
+        }
     }
 }
