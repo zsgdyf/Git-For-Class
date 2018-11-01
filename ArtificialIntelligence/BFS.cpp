@@ -122,6 +122,11 @@ int BFS(vector<int> start, vector<int> end)
                 swap(now.num[newLocation], now.num[zeroL]);
                 state newState = state(now.num, id++, now.nowId);
                 swap(now.num[newLocation], now.num[zeroL]);
+                if (isEqual(newState.num, end))
+                {
+                    path.push_back(newState);
+                    return path.size();
+                }
                 if (!close.count(newState.num))
                 {
                     open.push(newState);
@@ -130,6 +135,24 @@ int BFS(vector<int> start, vector<int> end)
             }
         }
     }
+}
+
+void printPath(int parentId, int steps)
+{
+    if (steps == 1)
+    {
+        return;
+    }
+    for (int i = steps; i > 0; --i)
+    {
+        if (path[i].nowId == parentId)
+        {
+            printPath(path[i].parentId, i);
+            steps = i;
+        }
+    }
+    cout << "step[" << steps << "] -->" << endl;
+    printMatrix(path[steps].num);
 }
 
 int main()
@@ -158,11 +181,14 @@ int main()
     if (hasSolution(start, end))
     {
         int steps = BFS(start, end);
+        /*
         for (int i = 1; i < path.size(); i++)
         {
             cout << "step[" << i << "]-->" << endl;
             printMatrix(path[i].num);
         }
+        */
+        printPath((path.end() - 1) ->parentId, steps);
         cout << "steps:" << steps - 1 << endl;
         cout << "Has solution" << endl;
     }
