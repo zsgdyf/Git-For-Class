@@ -23,10 +23,12 @@ class state
         this->nowId = nowId;
         this->parentId = parentId;
     }
+    /*
     bool operator<(const state &now) const
     {
         return fX < now.fX;
     }
+    */
     bool operator==(const state &now) const
     {
         return isEqual(num, now.num);
@@ -130,9 +132,15 @@ int AStar(vector<int> start, vector<int> end)
     open.push_back(state(start, HX(start, end), 0, HX(start, end), id, id++));
     while (!open.empty())
     {
-        sort(open.begin(), open.end());
-        state now = *open.begin();
-        open.erase(open.begin());
+        auto min = min_element(open.begin(), open.end(), [](const state &x, const state &y)-> bool 
+        {
+            return x.fX < y.fX;
+        });
+        state now = *min;
+        open.erase(min);
+        //sort(open.begin(), open.end());
+        //state now = *open.begin();
+        //open.erase(open.begin());
         path.push_back(now);
         close[now.num] = true;
         if (isEqual(now.num, end))
