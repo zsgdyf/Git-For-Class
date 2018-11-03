@@ -169,19 +169,7 @@ int AStar(vector<int> start, vector<int> end)
                 }
                 if (!close.count(newState.num))
                 {
-                    vector<state>::iterator iter = find(open.begin(), open.end(), newState);
-                    if (iter != open.end())
-                    {
-                        if (iter->fX > newState.fX)
-                        {
-                            open.erase(iter);
-                            open.push_back(newState);
-                        }
-                    }
-                    else
-                    {
-                        open.push_back(newState);
-                    }
+                    open.push_back(newState);
                 }
             }
         }
