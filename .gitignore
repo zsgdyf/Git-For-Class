@@ -30,11 +30,11 @@
 
 # Executables
 *.exe
-#*.out
+*.out
 #*.app
 
 .vs
 .vscode
 debug
 .idea
-.class
+*.class
