@@ -4,4 +4,4 @@
 
 （注： 这里不区分单词大小写，如， he 与 He 当做是同一个单词计数）
 
-这里用的示例文本 data.dat 来源于[《斗破苍穹》英文版第一章](https://www.wuxiaworld.com/novel/battle-through-the-heavens/btth-chapter-1)
+这里用的示例文本 data.dat 来源于 [《斗破苍穹》英文版第一章](https://www.wuxiaworld.com/novel/battle-through-the-heavens/btth-chapter-1)
