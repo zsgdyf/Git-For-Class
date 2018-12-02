@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
@@ -13,12 +11,7 @@ import java.nio.file.Paths;
 public class CloudComputing {
     public static void sortByValue(Map<String, Integer> wordCount) {
         List<Map.Entry<String, Integer>> wordList = new ArrayList<>(wordCount.entrySet());
-        Collections.sort(wordList, new Comparator<Map.Entry<String, Integer>>() {
-            public int compare(Entry<String, Integer> x, Entry<String, Integer> y) {
-                // return y.getValue().toString().compareTo(x.getValue().toString());
-                return y.getValue() - x.getValue();
-            }
-        });
+        Collections.sort(wordList, (x, y) -> y.getValue() - x.getValue());
         for (Map.Entry<String, Integer> word : wordList.subList(0, 3)) {
             System.out.println("[" + word.getKey() + ", " + word.getValue() + "]");
         }
